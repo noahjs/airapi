@@ -6,6 +6,7 @@ var AIRBNB_PREFIX = 'https://www.airbnb.com',
     AVAILABILITY_URL = AIRBNB_PREFIX + '/api/v2/calendar_months',
     HOSTING_INFO_URL = AIRBNB_PREFIX + '/api/v1/listings',
     USER_REVIEWS_URL = AIRBNB_PREFIX + '/users/review_page',
+    USER_HOST_URL = AIRBNB_PREFIX + '/users/show',
     DEFAULT_REQUEST_CONFIGS = {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
