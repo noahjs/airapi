@@ -14,6 +14,7 @@ var search = require('./api/search'),
     info = require('./api/info'),
     availability = require('./api/availability'),
     reviews = require('./api/reviews'),
+    listings = require('./api/listings'),
     income = require('./api/income');
 
 module.exports = {
@@ -21,5 +22,6 @@ module.exports = {
   info: info,
   availability: availability,
   reviews: reviews,
+  listings: listings,
   income: income
 };
