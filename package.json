@@ -8,13 +8,8 @@
   "main": "Airbnb.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/phamtrisi/airapi.git"
+    "url": "https://github.com/noahjs/airapi.git"
   },
-  "bugs": {},
-  "keywords": [
-    "airbnb",
-    "api"
-  ],
   "dependencies": {
     "lodash": "*",
     "request": "*",

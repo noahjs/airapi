@@ -22,40 +22,42 @@ var request = require('request'),
  *   role: {String}, Either 'guest' or 'host', default to 'host'
  * }
  */
-function listings(userId, options, successCallback, failureCallback) {
-  var searchOptions = _.assign({}, DEFAULT_listings_PARAMS, options),
+function listings(userId, callback) {
+  var searchOptions = _.assign({}, DEFAULT_listings_PARAMS, {}),
     requestConfigs = _.assign({}, configs.DEFAULT_REQUEST_CONFIGS, {
-      url: configs.USER_HOST_URL + '/' + userId + '?' + serialize(searchOptions)
+      url: configs.USER_HOST_URL + '/' + userId
     }),
     listings = [],
     $;
-
   // Make request to get user listings
   request(requestConfigs, function(err, res, body) {
-    if (!err && res.statusCode == 200 && _.isFunction(successCallback)) {
+    if (!err && res.statusCode == 200 && _.isFunction(callback)) {
       try {
         // Since the res is in HTML, parse with cheerio
-        $ = cheerio.load(JSON.parse(body).review_content);
+        $ = cheerio.load(body);
 
         // Construct list of textual listings
-        $('.hostings-list .list-layout li').each(function(idx, $review) {
-          listings.push({
-            link: $review.find('a').attr('herf'),
-            photo: $review.find('img').attr('src'),
-            title: $review.find('img').attr('title'),
-            location: $review.find('.text-normal').text(),
-          });
+        $('.hostings-list li').each(function(idx, $listing) {
+          try {
+            listings.push({
+              link: $listing.children[1].attribs.href,
+              photo: $listing.children[1].children[1].attribs.src,
+              title: $listing.children[1].children[1].attribs.title,
+              location: $listing.children[1].children[2].next.children[3].children[0].data.trim()
+            });
+          } catch (err) { /* Ignore that element */ }
+
         });
 
         // Invoke success callback
-        successCallback(listings);
+        callback(null, listings);
       } catch (err) {
-        if (_.isFunction(failureCallback)) {
-          failureCallback(err, res);
+        if (_.isFunction(callback)) {
+          callback(err, res);
         }
       }
-    } else if (err && _.isFunction(failureCallback)) {
-      failureCallback(err, res);
+    } else if (err && _.isFunction(callback)) {
+      callback(err, res);
     }
   });
 }
