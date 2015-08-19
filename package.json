@@ -5,7 +5,7 @@
   "author": "Si Pham (phamtrisi@gmail.com)",
   "bin": {},
   "scripts": {},
-  "main": "Airbnb.js",
+  "main": "airbnb.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/noahjs/airapi.git"
